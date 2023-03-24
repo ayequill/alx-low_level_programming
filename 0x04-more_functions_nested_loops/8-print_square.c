@@ -1,36 +1,25 @@
-#include <stdio.h>
+#include "main.h"
 
 /**
- * main - Prints the numbers from 1-100, but for multiples of three,
- *        Fizz is printed instead of the number, for multiples of five,
- *        Buzz, and for multiples of both three and five, FizzBuzz.
- *
- * Return: Always 0.
+ * print_square - Prints a squareusing the character #.
+ * @size: The size of the square.
  */
-int main(void)
+void print_square(int size)
 {
-	int num;
+	int hgt, wid;
 
-	for (num = 1; num <= 100; num++)
+	if (size > 0)
 	{
-		if ((num % 3) == 0 && (num % 5) == 0)
-			printf("FizzBuzz");
+		for (hgt = 0; hgt < size; hgt++)
+		{
+			for (wid = 0; wid < size; wid++)
+				_putchar('#');
 
-		else if ((num % 3) == 0)
-			printf("Fizz");
-
-		else if ((num % 5) == 0)
-			printf("Buzz");
-
-		else
-			printf("%d", num);
-
-		if (num == 100)
-			continue;
-		printf(" ");
+			if (hgt == size - 1)
+				continue;
+			_putchar('\n');
+		}
 	}
 
-	printf("\n");
-
-	return (0);
+	_putchar('\n');
 }
