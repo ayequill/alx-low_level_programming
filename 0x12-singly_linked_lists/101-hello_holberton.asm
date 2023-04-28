@@ -1,19 +1,19 @@
+global _start
+
 section .data
-    format db 'Hello, Holberton', 10, 0
-    ; 10 is the ASCII code for newline, and 0 is the null terminator for the string
+    message db "Hello, Holberton", 0
+    format db "%s\n", 0
 
 section .text
-    global main
-    extern printf
-
-main:
-    push rbp
-    mov rbp, rsp
-
-    lea rdi, [format]
-    xor eax, eax
+_start:
+    ; Set up arguments for printf
+    mov rdi, format
+    mov rsi, message
+    xor rax, rax  ; clear rax register
+    ; Call printf function
     call printf
 
-    mov rsp, rbp
-    pop rbp
-    ret
+    ; Exit the program
+    xor rdi, rdi  ; set return code to 0
+    mov rax, 60  ; system call for exit
+    syscall
