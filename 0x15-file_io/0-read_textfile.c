@@ -1,41 +1,30 @@
 #include "main.h"
 
 /**
- * read_and_print_textfile - reads a text file and prints it to the stdout
- * @filename: name of the file to be read
- * @max_chars: maximum number of characters to be printed
- * Return: number of characters printed, or 0 if there was an error
+ * read_textfile - reads a text file and prints it
+ * @filename: name of the text file
+ * @letters: number of letters to read and print
+ *
+ * Return: the actual number of letters read and printed
  */
-ssize_t read_and_print_textfile(const char *filename, size_t max_chars)
+
+ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int file_descriptor, error, bytes_read;
+	ssize_t fd, count, countp;
 	char *buffer;
 
-	file_descriptor = error = bytes_read = 0;
-	if (!filename || !max_chars)
+	fd = open(filename, O_RDONLY);
+	if (fd == -1 || filename == NULL)
 		return (0);
-	file_descriptor = open(filename, O_RDONLY);
-	if (file_descriptor < 0)
+	buffer = malloc(sizeof(char) * (letters + 1));
+	if (buffer == NULL)
 		return (0);
-
-	buffer = malloc(sizeof(char) * max_chars + 1);
-	if (!buffer)
-		return (0);
-	bytes_read = read(file_descriptor, buffer, max_chars);
-	if (bytes_read < 0)
-	{
-		free(buffer);
-		return (0);
-	}
-	buffer[max_chars] = '\0';
-	error = write(STDOUT_FILENO, buffer, bytes_read);
-	if (error <= 0)
-	{
-		free(buffer);
-		return (0);
-	}
-
+	count = read(fd, buffer, letters);
+	buffer[letters] = '\0';
+	countp = write(STDOUT_FILENO, buffer, count);
 	free(buffer);
-	close(file_descriptor);
-	return (bytes_read);
+	if (countp != count)
+		return (0);
+	close(fd);
+	return (count);
 }
