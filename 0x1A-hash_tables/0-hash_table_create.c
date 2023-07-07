@@ -14,7 +14,7 @@
 hash_table_t *hash_table_create(unsigned long int size)
 {
     hash_table_t *hash_table = NULL;
-    unsigned long int index = 0;
+    /* unsigned long int index = 0; */
 
     if (size == 0)
         return (NULL);
@@ -31,18 +31,4 @@ hash_table_t *hash_table_create(unsigned long int size)
     }
 
     return (hash_table);
-}
-
-/**
- * main - check the code for
- *
- * Return: Always EXIT_SUCCESS.
- */
-int main(void)
-{
-    hash_table_t *ht;
-
-    ht = hash_table_create(1024);
-    printf("%p\n", (void *)ht);
-    return (EXIT_SUCCESS);
 }
